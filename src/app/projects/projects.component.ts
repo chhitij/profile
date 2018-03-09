@@ -22,8 +22,8 @@ export class ProjectsComponent implements OnDestroy {
 
   private getProjects() {
     this.projects = this.af.list("projects").valueChanges();
-    this.commonService.events$.forEach(event =>
-      console.log("clicke event from app componet", event)
+    this.commonService.events$.subscribe(evt =>
+      console.log("clicke event from app componet", evt)
     );
   }
 

@@ -3,13 +3,13 @@ import { Subject } from "rxjs/Subject";
 
 @Injectable()
 export class CommonService {
-  private _subject = new Subject<any>();
+  private subject = new Subject<any>();
 
   newEvent(event) {
-    this._subject.next(event);
+    this.subject.next(event);
   }
 
   get events$() {
-    return this._subject.asObservable();
+    return this.subject;
   }
 }

@@ -1,15 +1,20 @@
 import { AngularFireDatabase } from "angularfire2/database";
-import { Component } from "@angular/core";
+import { Component, OnDestroy } from "@angular/core";
+import { CommonService } from "../service/service.component";
+import { Subscription } from "rxjs/Subscription";
 
 @Component({
   selector: "app-projects",
   templateUrl: "./projects.component.html",
   styleUrls: ["./projects.component.scss"]
 })
-export class ProjectsComponent {
+export class ProjectsComponent implements OnDestroy {
   projects: any[];
 
-  constructor(private af: AngularFireDatabase) {}
+  constructor(
+    private af: AngularFireDatabase,
+    private commonService: CommonService
+  ) {}
 
   ngOnInit() {
     this.getProjects();
@@ -17,5 +22,13 @@ export class ProjectsComponent {
 
   private getProjects() {
     this.projects = this.af.list("projects").valueChanges();
+    this.commonService.events$.forEach(event =>
+      console.log("clicke event from app componet", event)
+    );
+  }
+
+  ngOnDestroy() {
+    // prevent memory leak when component destroyed
+    this.subscription.unsubscribe();
   }
 }

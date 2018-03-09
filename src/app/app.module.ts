@@ -13,7 +13,7 @@ import { environment } from "../environments/environment";
     AngularFireModule.initializeApp(environment.firebase),
     BrowserModule
   ],
-  providers: [AngularFireDatabase],
+  providers: [AngularFireDatabase, SomeService],
   bootstrap: [AppComponent]
 })
 export class AppModule {}
